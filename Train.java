@@ -38,6 +38,5 @@ public class Train {
 
     public void printManifest(){
         ArrayList<Passenger> passengers = new ArrayList<>();
-        for()
     }
 }
