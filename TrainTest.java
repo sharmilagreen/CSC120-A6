@@ -7,11 +7,19 @@ public class TrainTest {
 
     public Train t;
 
+    /**
+     * Set up a standard Train object used later
+     */
     @Before
     public void setup() {
         this.t = new Train(FuelType.ELECTRIC, 100, 4, 500);
     }
-    // Engine Tests
+
+    //Engine tests
+
+    /**
+     * Tests  the Engine constructor properly initializes
+     */
     @Test
     public void testEngineConstructor() {
         Engine e = new Engine(FuelType.STEAM, 20, 100);
@@ -20,6 +28,9 @@ public class TrainTest {
         assertEquals(100, e.getMaxFuel(), 0.001);
     }
 
+    /**
+     * Tests the Engine.go() method for fuel usage
+     */    
     @Test
     public void testEngineGo() {
         Engine e = new Engine(FuelType.ELECTRIC, 4, 100);
@@ -31,6 +42,10 @@ public class TrainTest {
     }
 
     // Car Tests
+
+    /**
+     * Tests adding a passenger to a car with space and error message when full.
+     */    
     @Test
     public void testCarAddPassenger() {
         Car c = new Car(1);
@@ -40,6 +55,9 @@ public class TrainTest {
         assertFalse(c.addPassenger(b));
     }
 
+    /**
+     * Tests removing a passenger who exists and failing for one who hasn't boarded the car
+     */
     @Test
     public void testCarRemovePassenger() {
          Car c = new Car(2);
@@ -51,14 +69,21 @@ public class TrainTest {
     }
 
     // Passenger Tests
+
+    /**
+     * Tests boarding a car that isn't full
+     */    
     @Test
     public void testPassengerBoardCarWithSpace() {
-        Car c = new Car(1);
+        Car c = new Car(2);
         Passenger p = new Passenger("Dana");
         p.boardCar(c);
-        assertEquals(0, c.seatsRemaining());
+        assertEquals(1, c.seatsRemaining());
     }
 
+    /**
+     * Tests boarding a full car
+     */
     @Test
     public void testPassengerBoardCarFull() {
         Car c = new Car(1);
@@ -70,6 +95,10 @@ public class TrainTest {
     }
 
     // Train Tests
+
+    /**
+     * Tests that the Train constructor sets up engine and cars
+     */    
     @Test
     public void testTrainConstructor() {
         Train train = new Train(FuelType.ELECTRIC, 200, 2, 100);
@@ -78,6 +107,9 @@ public class TrainTest {
         assertEquals(100, train.getCar(1).getCapacity() + train.getCar(0).getCapacity());
     }
 
+    /**
+     * Tests the Train.seatsRemaining() method after boarding a passenger.
+     */
     @Test
     public void testTrainPassengerCount() {
         assertEquals(500, t.getMaxCapacity());
@@ -87,6 +119,9 @@ public class TrainTest {
         assertEquals(499, t.seatsRemaining());
     }
 
+    /**
+     * Tests retrieving a car from Train by index.
+     */
     @Test
     public void testTrainGetCar() {
         Car car = t.getCar(2);
@@ -94,6 +129,9 @@ public class TrainTest {
         assertEquals(125, car.getCapacity());
     }
 
+    /**
+     * Calls printManifest()
+     */    
     @Test
     public void testTrainPrintManifest() {
         Car car = t.getCar(0);
